@@ -3,6 +3,9 @@ package com.registration.controller;
 import com.registration.model.User;
 import com.registration.model.UserResponse;
 import com.registration.service.UserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserResponse> save(@RequestBody User user) {
+    public ResponseEntity<UserResponse> save(@Valid @RequestBody User user) {
         boolean isSaveUser = userService.saveUser(user);
         UserResponse userResponse = new UserResponse();
         if (isSaveUser) {
