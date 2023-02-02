@@ -3,6 +3,7 @@ package com.registration.controller;
 import com.registration.model.User;
 import com.registration.model.UserResponse;
 import com.registration.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +22,16 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserResponse> save(@RequestBody User user) {
+    public ResponseEntity<Boolean> save(@Valid @RequestBody User user) {
         boolean isSaveUser = userService.saveUser(user);
         UserResponse userResponse = new UserResponse();
         if (isSaveUser) {
             userResponse.setUser(user);
             userResponse.setMessage("User data saved successfully!");
-            return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+            return new ResponseEntity<>(isSaveUser, HttpStatus.CREATED);
         }
-        userResponse.setMessage("Bad Request");
-        return new ResponseEntity<>(userResponse, HttpStatus.BAD_REQUEST);
+        userResponse.setMessage("User creation was failed...");
+        return new ResponseEntity<>(isSaveUser, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/users")

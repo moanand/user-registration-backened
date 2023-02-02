@@ -1,9 +1,11 @@
 package com.registration.serviceImpl;
 
+import com.registration.entity.AddressEntity;
 import com.registration.entity.UserEntity;
 import com.registration.model.User;
 import com.registration.repository.UserRepository;
 import com.registration.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -25,6 +28,12 @@ public class UserServiceImpl implements UserService {
         if (null != user) {
             UserEntity userEntity = new UserEntity();
             BeanUtils.copyProperties(user, userEntity);
+
+            AddressEntity addressEntity = new AddressEntity();
+            BeanUtils.copyProperties(user.getAddress(), addressEntity);
+            userEntity.setAddress(addressEntity);
+            log.info("User details {}", userEntity);
+
             userRepository.save(userEntity);
             return true;
         }
