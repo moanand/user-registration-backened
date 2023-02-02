@@ -2,6 +2,7 @@ package com.registration.serviceImpl;
 
 import com.registration.entity.AddressEntity;
 import com.registration.entity.UserEntity;
+import com.registration.model.Address;
 import com.registration.model.User;
 import com.registration.repository.UserRepository;
 import com.registration.service.UserService;
@@ -44,10 +45,14 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         List<UserEntity> usersEntityList = userRepository.findAll();
+        System.out.println("from service :: " + usersEntityList);
         if (!usersEntityList.isEmpty()) {
             usersEntityList.stream().forEach(userEntity -> {
                 User user = new User();
                 BeanUtils.copyProperties(userEntity, user);
+                Address address = new Address();
+                BeanUtils.copyProperties(userEntity.getAddress(), address);
+                user.setAddress(address);
                 userList.add(user);
             });
             return userList;
@@ -62,6 +67,9 @@ public class UserServiceImpl implements UserService {
         if (optionalUserEntity.isPresent()) {
             UserEntity userEntity = optionalUserEntity.get();
             BeanUtils.copyProperties(userEntity, user);
+            Address address = new Address();
+            BeanUtils.copyProperties(userEntity.getAddress(), address);
+            user.setAddress(address);
             return user;
         }
         return user;
