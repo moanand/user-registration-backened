@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         List<UserEntity> usersEntityList = userRepository.findAll();
-        System.out.println("from service :: " + usersEntityList);
+
         if (!usersEntityList.isEmpty()) {
             usersEntityList.stream().forEach(userEntity -> {
                 User user = new User();
@@ -55,13 +55,14 @@ public class UserServiceImpl implements UserService {
                 user.setAddress(address);
                 userList.add(user);
             });
+            log.info("User List :: {}", userList);
             return userList;
         }
         return userList;
     }
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(Integer userId) {
         Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
         User user = new User();
         if (optionalUserEntity.isPresent()) {
@@ -76,12 +77,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return null;
+    public boolean updateUser(User user, Integer userId) {
+        Optional<UserEntity> userData = userRepository.findById(userId);
+        if (userData.isPresent()) {
+            user.setUid(userId);
+            UserEntity userEntity = userData.get();
+            BeanUtils.copyProperties(user, userEntity);
+            userRepository.save(userEntity);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean deleteUser(int userId) {
+    public boolean deleteUser(Integer userId) {
+        Optional<UserEntity> userData = userRepository.findById(userId);
+        if (userData.isPresent()) {
+            userRepository.deleteById(userId);
+            return true;
+        }
         return false;
     }
 }

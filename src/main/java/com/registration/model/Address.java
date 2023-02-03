@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class Address {
     private Integer aid;
+    @NotEmpty(message = "Please enter address here")
+    private String addressLine;
     @NotEmpty(message = "Country is required field")
     private String country;
     @NotEmpty(message = "State is required field")

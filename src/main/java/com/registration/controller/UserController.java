@@ -26,12 +26,9 @@ public class UserController {
         boolean isSaveUser = userService.saveUser(user);
         UserResponse userResponse = new UserResponse();
         if (isSaveUser) {
-            userResponse.setUser(user);
-            userResponse.setMessage("User data saved successfully!");
-            return new ResponseEntity<>(isSaveUser, HttpStatus.CREATED);
+            return new ResponseEntity<>(true, HttpStatus.CREATED);
         }
-        userResponse.setMessage("User creation was failed...");
-        return new ResponseEntity<>(isSaveUser, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/users")
@@ -48,7 +45,7 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> findUserById(@PathVariable(name = "id") int userId) {
         User user = userService.getUserById(userId);
         UserResponse userResponse = new UserResponse();
@@ -59,5 +56,23 @@ public class UserController {
         }
         userResponse.setMessage("User not found with id " + userId);
         return new ResponseEntity<>(userResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<Boolean> updateUser(@PathVariable Integer id,@RequestBody User user) {
+        boolean isUserUpdated = userService.updateUser(user, id);
+        if (isUserUpdated) {
+            return new ResponseEntity<>(isUserUpdated, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(isUserUpdated, HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable Integer id) {
+        boolean isUserDeleted = userService.deleteUser(id);
+        if (isUserDeleted) {
+            return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
