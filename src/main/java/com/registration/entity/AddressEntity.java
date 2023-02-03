@@ -10,6 +10,8 @@ public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer aid;
+
+    private String addressLine;
     private String country;
     private String state;
     private String city;

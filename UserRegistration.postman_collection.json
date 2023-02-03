@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "ef0b0a71-7cc0-40cc-ab97-1172ffdf2e88",
+		"name": "UserRegistration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"krshiv\",\n    \"title\":\"Mr\",\n    \"firstName\": \"Shiv\",\n    \"lastName\": \"Kumar\",\n    \"birthDate\": \"13-06-1992\",\n    \"email\": \"shiv@gmail.com\",\n    \"phone\": \"7899979876\",\n    \"address\": {\n        \"addressLine\":\"Immadihalli, Whitefield\",\n        \"country\":\"India\",\n        \"state\":\"Karnataka\",\n        \"city\":\"Bangalore\",\n        \"pinCode\":\"560066\"\n    },\n    \"password\": \"shiv123\",\n    \"isTncAccepted\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userRegistrationApi}}/api/userReg/addUser",
+					"host": [
+						"{{userRegistrationApi}}"
+					],
+					"path": [
+						"api",
+						"userReg",
+						"addUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{userRegistrationApi}}/api/userReg/users",
+					"host": [
+						"{{userRegistrationApi}}"
+					],
+					"path": [
+						"api",
+						"userReg",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{userRegistrationApi}}/api/userReg/users/52",
+					"host": [
+						"{{userRegistrationApi}}"
+					],
+					"path": [
+						"api",
+						"userReg",
+						"users",
+						"52"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUserById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/userReg/users/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"userReg",
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ansh\",\n    \"title\": \"Master\",\n    \"firstName\": \"Ansh\",\n    \"lastName\": \"Anand\",\n    \"birthDate\": \"05-06-2019\",\n    \"email\": \"ansh@gmail.com\",\n    \"phone\": \"7899999976\",\n    \"address\": {\n        \"addressLine\": \"Immadihalli Village, Whitefield\",\n        \"country\": \"India\",\n        \"state\": \"Karnataka\",\n        \"city\": \"Bangalore\",\n        \"pinCode\": \"560066\"\n    },\n    \"password\": \"shiv123\",\n    \"isTncAccepted\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/userReg/users/52",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"userReg",
+						"users",
+						"52"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
