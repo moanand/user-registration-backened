@@ -37,6 +37,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<UserResponse> findAllUsers() {
         List<User> users = userService.getAllUsers();
+        System.out.println(users);
         UserResponse userResponse = new UserResponse();
         if (!users.isEmpty()) {
             userResponse.setUsers(users);

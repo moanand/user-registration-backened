@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private Integer uid;
