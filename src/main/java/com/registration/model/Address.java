@@ -15,6 +15,7 @@ public class Address {
     private String state;
     @NotEmpty(message = "City is required field")
     private String city;
+    @NotEmpty(message = "Pin code is required field")
     @Size(min = 6, max = 6, message = "Please provide valid 6 digit pincode")
     private String pinCode;
 }

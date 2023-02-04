@@ -16,6 +16,8 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private Integer uid;
+    @NotEmpty(message = "Username is required")
+    @Size(min = 5, max = 10, message = "Username must be between 5 and 10 characters")
     private String username;
     @NotNull(message = "Title is required")
     private String title;
@@ -25,7 +27,7 @@ public class User {
     @NotEmpty(message = "Last name is required")
     @Size(min = 2, max = 20, message = "Last name should be between 2 and 20 characters long")
     private String lastName;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Past(message = "Birth date should be past date")
     private LocalDate birthDate;
     @NotEmpty(message = "Email is required")
